@@ -176,67 +176,6 @@
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
   </script>
 
-<script>
-
-  async function fetchData(query, containerId) {
-    try {
-      const response = await fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${query}`);
-      const data = await response.json();
-
-      // Extract the tracks from the API response
-      const tracks = data.data;
-
-      // Get the container element by its ID
-      const container = document.getElementById(containerId);
-
-      // Clear existing content in the container
-      container.innerHTML = '';
-
-      // Iterate through the tracks and update the container with new content
-      tracks.forEach(track => {
-        const trackElement = document.createElement('div');
-        trackElement.classList.add('col-3', 'mb-4');
-        trackElement.innerHTML = `
-          <div class="card">
-            <img src="${track.album.cover_medium}" class="card-img-top" alt="${track.title}">
-            <div class="card-body">
-              <h5 class="card-title">${track.title}</h5>
-              <p class="card-text">${track.artist.name}</p>
-            </div>
-          </div>
-        `;
-
-        // Append the track element to the container
-        container.appendChild(trackElement);
-      });
-
-      // Show the container after updating its content
-      container.style.display = 'block';
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }
-
-  // Function to trigger the search and update the corresponding section
-  function search() {
-    const searchQuery = document.getElementById('searchField').value;
-
-    // Use the fetchData function for the search results section
-    fetchData(searchQuery, 'searchSection');
-
-    // Use fetchData for other sections as needed (e.g., Eminem, Metallica, Queen)
-    fetchData('eminem', 'eminemSection');
-    fetchData('metallica', 'metallicaSection');
-    fetchData('queen', 'queenSection');
-
-    // Hide and show relevant sections based on the search
-    document.getElementById('searchResults').style.display = 'block';
-    document.getElementById('eminem').style.display = 'none';
-    document.getElementById('metallica').style.display = 'none';
-    document.getElementById('queen').style.display = 'none';
-  }
-</script>
-<script src="script.js"></script>
 </body>
 
 </html>
